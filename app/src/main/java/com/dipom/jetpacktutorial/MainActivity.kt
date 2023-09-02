@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.os.Message
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -70,9 +72,14 @@ fun MessageCard(msg: com.dipom.jetpacktutorial.models.Message) {
 
         Spacer(modifier = Modifier.width(10.dp))
 
-        Spacer(modifier = Modifier.height(5.dp))
+
 
         var isExpanded by remember { mutableStateOf(false) }
+
+        val surfaceColor by animateColorAsState(
+            if (isExpanded) MaterialTheme.colorScheme.primary
+                else MaterialTheme.colorScheme.surface
+        )
 
         Column(modifier = Modifier.clickable { isExpanded = !isExpanded }) {
             Text(
@@ -81,7 +88,12 @@ fun MessageCard(msg: com.dipom.jetpacktutorial.models.Message) {
                 style = MaterialTheme.typography.titleMedium
             )
 
-            Surface(shape = MaterialTheme.shapes.large, shadowElevation = 3.dp) {
+            Spacer(modifier = Modifier.height(5.dp))
+
+            Surface(shape = MaterialTheme.shapes.large,
+                    shadowElevation = 3.dp,
+                    color = surfaceColor,
+                    modifier = Modifier.animateContentSize().padding(1.dp) ){
                 Text(
                     text = msg.body,
                     modifier = Modifier.padding(all = 4.dp),
