@@ -29,9 +29,13 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MessageCard(com.dipom.jetpacktutorial.models.Message
-                ("Android",
-                 "Jetpack Compose"))
+            JetpackTutorialTheme {
+                Surface(modifier = Modifier.fillMaxSize()) {
+                    MessageCard(com.dipom.jetpacktutorial.models.Message
+                        ("Android",
+                        "Jetpack Compose"))
+                }
+            }
         }
     }
 }
@@ -63,5 +67,9 @@ fun MessageCard(msg: com.dipom.jetpacktutorial.models.Message) {
 @Preview
 @Composable
 fun PrevMessageCard() {
-    MessageCard(com.dipom.jetpacktutorial.models.Message("Maks", "Hello world"))
+    JetpackTutorialTheme {
+        Surface {
+            MessageCard(com.dipom.jetpacktutorial.models.Message("Maks", "Hello world"))
+        }
+    }
 }
