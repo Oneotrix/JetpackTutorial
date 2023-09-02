@@ -7,6 +7,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,6 +24,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
@@ -37,9 +42,11 @@ class MainActivity : ComponentActivity() {
         setContent {
             JetpackTutorialTheme {
                 Surface(modifier = Modifier.fillMaxSize()) {
-                    MessageCard(com.dipom.jetpacktutorial.models.Message
-                        ("Android",
-                        "Jetpack Compose"))
+//                    MessageCard(com.dipom.jetpacktutorial.models.Message
+//                        ("Android",
+//                        "Jetpack Compose"))
+                    
+                    Conversation(messages = SampleData.conversationSample)
                 }
             }
         }
@@ -48,37 +55,46 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MessageCard(msg: com.dipom.jetpacktutorial.models.Message) {
-    Row (modifier = Modifier.padding(all = 8.dp)){
-        Image(  painter = painterResource(id = R.drawable.photo),
-                contentDescription = "Maks photo",
-                modifier = Modifier
-                    //set size
-                    .size(40.dp)
-                    //clip to circle
-                    .clip(CircleShape)
-                    //add border
-                    .border(1.5.dp, MaterialTheme.colorScheme.primary, CircleShape)
+    Row (modifier = Modifier.padding(all = 8.dp)) {
+        Image(
+            painter = painterResource(id = R.drawable.photo),
+            contentDescription = "Maks photo",
+            modifier = Modifier
+                //set size
+                .size(40.dp)
+                //clip to circle
+                .clip(CircleShape)
+                //add border
+                .border(1.5.dp, MaterialTheme.colorScheme.primary, CircleShape)
         )
-    
+
         Spacer(modifier = Modifier.width(10.dp))
-    
-        Column() {
+
+        Spacer(modifier = Modifier.height(5.dp))
+
+        var isExpanded by remember { mutableStateOf(false) }
+
+        Column(modifier = Modifier.clickable { isExpanded = !isExpanded }) {
             Text(
                 text = msg.author,
-                color = MaterialTheme.colorScheme.secondary
+                color = MaterialTheme.colorScheme.secondary,
+                style = MaterialTheme.typography.titleMedium
             )
-            
-            Spacer(modifier = Modifier.height(5.dp))
-            
+
             Surface(shape = MaterialTheme.shapes.large, shadowElevation = 3.dp) {
                 Text(
                     text = msg.body,
                     modifier = Modifier.padding(all = 4.dp),
-                    style = MaterialTheme.typography.bodyMedium)
+                    //if the message is expanded, we display all its content
+                    //otherwise we only display the first line
+                    maxLines = if (isExpanded) Int.MAX_VALUE else 1,
+                    style = MaterialTheme.typography.bodyMedium
+                )
             }
-         }
+        }
     }
-}
+    }
+
 
 @Preview(name = "Light Mode")
 @Preview(
