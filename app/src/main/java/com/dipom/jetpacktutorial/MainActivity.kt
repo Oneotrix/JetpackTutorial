@@ -1,6 +1,7 @@
 package com.dipom.jetpacktutorial
 
 import android.os.Bundle
+import android.os.Message
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,18 +17,22 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MessageCard(name = "Android")
+            MessageCard(com.dipom.jetpacktutorial.models.Message
+                ("Android",
+                 "Jetpack Compose"))
         }
     }
 }
 
 @Composable
-fun MessageCard(name: String) {
-    Text(text = "Hello, $name")
+fun MessageCard(msg: com.dipom.jetpacktutorial.models.Message) {
+    Text(text = msg.author)
+    Text(text = msg.body)
+
 }
 
 @Preview
 @Composable
 fun PrevMessageCard() {
-    MessageCard(name = "Android")
+    MessageCard(com.dipom.jetpacktutorial.models.Message("Maks", "Hello world"))
 }
