@@ -139,10 +139,10 @@ fun FavoriteCollectionCard(
 fun AlignYourBodyRow(
     modifier: Modifier = Modifier
 ) {
-    LazyRow(modifier = modifier.padding(
-        start = 16.dp,
-        end = 12.dp
-    )) {
+    LazyRow(
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = modifier
+    ) {
         items(
             AlignYourBodyData.list
         ) {
