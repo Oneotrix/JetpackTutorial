@@ -16,6 +16,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
@@ -36,6 +38,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.dipom.ui_kit.data.AlignYourBodyData
 import com.dipom.ui_kit.ui.theme.JetpackTutorialTheme
 
 class MainActivity : ComponentActivity() {
@@ -48,7 +51,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    AlignYourBodyElement(Modifier)
+
                 }
             }
         }
@@ -78,13 +81,16 @@ fun SearchBar(modifier: Modifier) {
 }
 
 @Composable
-fun AlignYourBodyElement(modifier: Modifier) {
+fun AlignYourBodyElement(
+    modifier: Modifier = Modifier,
+    image: Int,
+    text: Int) {
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally) {
         Image(
             contentScale = ContentScale.Crop,
-            painter = painterResource(id = R.drawable.ab1_inversions),
+            painter = painterResource(id = image),
             contentDescription = null,
             modifier = modifier
                 .size(88.dp)
@@ -129,22 +135,56 @@ fun FavoriteCollectionCard(
     
 }
 
-@Preview
 @Composable
-fun SearchBarPreview() {
-    JetpackTutorialTheme {
-        Surface(color = MaterialTheme.colorScheme.background) {
-            SearchBar(Modifier)
+fun AlignYourBodyRow(
+    modifier: Modifier = Modifier
+) {
+    LazyRow(modifier = modifier.padding(
+        start = 16.dp,
+        end = 12.dp
+    )) {
+        items(
+            AlignYourBodyData.list
+        ) {
+            AlignYourBodyElement(
+                modifier.padding(end = 4.dp),
+                image = it.drawable,
+                text = it.string)
         }
     }
 }
 
-@Preview
+/*
+
+Preview Section
+
+*/
+
+@Preview(
+    showBackground = true,
+    backgroundColor = 0xFFF5F0EE
+)
+@Composable
+fun SearchBarPreview() {
+    JetpackTutorialTheme {
+        Surface(color = MaterialTheme.colorScheme.background) {
+            SearchBar(modifier = Modifier.padding(8.dp))
+        }
+    }
+}
+
+@Preview(
+    showBackground = true,
+    backgroundColor = 0xFFF5F0EE
+)
 @Composable
 fun AlignYourBodyElementPreview() {
     JetpackTutorialTheme {
         Surface(color = MaterialTheme.colorScheme.background) {
-            AlignYourBodyElement(Modifier)
+            AlignYourBodyElement(
+                image = R.drawable.ab1_inversions,
+                text = R.string.nature_meditation
+            )
         }
     }
 }
@@ -160,5 +200,16 @@ fun FavoriteCollectionCardPreview() {
             image = R.drawable.fc2_nature_meditations,
             modifier = Modifier.padding(8.dp)
         )
+    }
+}
+
+@Preview(
+    showBackground = true,
+    backgroundColor = 0xFFF5F0EE
+)
+@Composable
+fun AlignYourBodyRowPreview() {
+    JetpackTutorialTheme {
+        AlignYourBodyRow()
     }
 }
