@@ -1,6 +1,8 @@
 package com.dipom.ui_kit
 
+import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.DrawableRes
@@ -55,6 +57,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -62,14 +65,16 @@ import androidx.compose.ui.unit.dp
 import com.dipom.ui_kit.data.AlignYourBodyData
 import com.dipom.ui_kit.data.FavoriteCollectionsData
 import com.dipom.ui_kit.ui.theme.JetpackTutorialTheme
+import java.util.logging.Logger
 
 class MainActivity : ComponentActivity() {
-    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
+    //@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val windowSizeClass = calculateWindowSizeClass(activity = this)
-            MyApp(windowSize = windowSizeClass)
+            val configuration = LocalConfiguration.current
+            //val windowSizeClass = calculateWindowSizeClass(activity = this)
+            MyApp(configuration)
         }
     }
 }
@@ -324,22 +329,25 @@ private fun MyAppNavigationRail(
 
 @Composable
 fun MyAppLandscape() {
-    Surface(color = MaterialTheme.colorScheme.background) {
-        Row {
-            MyAppNavigationRail()
-            HomeScreen()
+    JetpackTutorialTheme() {
+        Surface(color = MaterialTheme.colorScheme.background) {
+            Row {
+                MyAppNavigationRail()
+                HomeScreen()
+            }
         }
     }
+
 }
 
 @Composable
-fun MyApp(windowSize: WindowSizeClass) {
-    when (windowSize.widthSizeClass) {
-        WindowWidthSizeClass.Compact -> {
-            MyAppPortrait()
-        }
-        WindowWidthSizeClass.Expanded -> {
+fun MyApp(configuration: Configuration) {
+    when (configuration.orientation) {
+        Configuration.ORIENTATION_LANDSCAPE -> {
             MyAppLandscape()
+        }
+        Configuration.ORIENTATION_PORTRAIT -> {
+            MyAppPortrait()
         }
     }
 }
