@@ -45,6 +45,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -60,18 +64,12 @@ import com.dipom.ui_kit.data.FavoriteCollectionsData
 import com.dipom.ui_kit.ui.theme.JetpackTutorialTheme
 
 class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            JetpackTutorialTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    FavoriteCollectionGrid()
-                }
-            }
+            val windowSizeClass = calculateWindowSizeClass(activity = this)
+            MyApp(windowSize = windowSizeClass)
         }
     }
 }
@@ -324,6 +322,28 @@ private fun MyAppNavigationRail(
     }
 }
 
+@Composable
+fun MyAppLandscape() {
+    Surface(color = MaterialTheme.colorScheme.background) {
+        Row {
+            MyAppNavigationRail()
+            HomeScreen()
+        }
+    }
+}
+
+@Composable
+fun MyApp(windowSize: WindowSizeClass) {
+    when (windowSize.widthSizeClass) {
+        WindowWidthSizeClass.Compact -> {
+            MyAppPortrait()
+        }
+        WindowWidthSizeClass.Expanded -> {
+            MyAppLandscape()
+        }
+    }
+}
+
 /*
 
 Preview Section
@@ -451,13 +471,8 @@ fun MyAppNavigationRailPreview() {
 @Preview()
 @Composable
 fun MyAppLandscapePreview() {
-    JetpackTutorialTheme() {
-       Surface(color = MaterialTheme.colorScheme.background) {
-           Row {
-               MyAppNavigationRail()
-               HomeScreen()
-           }
-       }
+    JetpackTutorialTheme {
+       MyAppLandscape()
     }
 
 }
