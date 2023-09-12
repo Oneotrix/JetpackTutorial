@@ -447,3 +447,17 @@ fun MyAppNavigationRailPreview() {
         MyAppNavigationRail()
     }
 }
+
+@Preview()
+@Composable
+fun MyAppLandscapePreview() {
+    JetpackTutorialTheme() {
+       Surface(color = MaterialTheme.colorScheme.background) {
+           Row {
+               MyAppNavigationRail()
+               HomeScreen()
+           }
+       }
+    }
+
+}
