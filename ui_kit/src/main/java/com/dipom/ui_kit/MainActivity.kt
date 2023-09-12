@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -36,6 +37,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationRail
+import androidx.compose.material3.NavigationRailItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -82,7 +85,7 @@ fun SearchBar(modifier: Modifier) {
             Icon(imageVector = Icons.Default.Search, contentDescription = "Search")
         },
         colors = TextFieldDefaults.textFieldColors(
-            containerColor = MaterialTheme.colorScheme.surface
+            containerColor = MaterialTheme.colorScheme.onPrimary
         ),
         placeholder = {
             Text(text = "Search")
@@ -276,6 +279,40 @@ fun MyAppPortrait() {
     }
 }
 
+@Composable
+private fun MyAppNavigationRail(
+    modifier: Modifier = Modifier
+) {
+    NavigationRail {
+        Column() {
+            NavigationRailItem(
+                icon = {
+                    Icon(
+                        imageVector = Icons.Default.Spa,
+                        contentDescription = null)
+                },
+                label = {
+                    Text(text = stringResource(id = R.string.bottom_navigation_home))
+                },
+                selected = true,
+                onClick = {}
+            )
+
+            NavigationRailItem(
+                icon = {
+                    Icon(
+                        imageVector = Icons.Default.AccountCircle,
+                        contentDescription = null)
+                },
+                label = {
+                    Text(text = stringResource(id = R.string.bottom_navigation_profile))
+                },
+                selected = false,
+                onClick = {}
+            )
+        }
+    }
+}
 
 /*
 
@@ -385,13 +422,18 @@ fun MyButtonNavigationPreview() {
 }
 
 
-@Preview(
-    showBackground = true,
-    backgroundColor = 0xFFF5F0EE,
-)
+@Preview
 @Composable
 fun MyAppPortraitPreview() {
     JetpackTutorialTheme {
         MyAppPortrait()
+    }
+}
+
+@Preview
+@Composable
+fun MyAppNavigationRailPreview() {
+    JetpackTutorialTheme {
+        MyAppNavigationRail()
     }
 }
