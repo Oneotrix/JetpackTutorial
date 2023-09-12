@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -198,6 +199,24 @@ fun HomeSection(
     }
 }
 
+
+@Composable
+fun HomeScreen(
+    modifier: Modifier = Modifier
+) {
+    Column {
+        Spacer(modifier = Modifier.height(16.dp))
+        SearchBar(modifier = modifier.padding(horizontal = 16.dp))
+        HomeSection(title = R.string.align_your_body) {
+            AlignYourBodyRow()
+        }
+        HomeSection(title = R.string.favorite_collections) {
+            FavoriteCollectionGrid()
+        }
+        Spacer(modifier = Modifier.height(16.dp))
+    }
+}
+
 /*
 
 Preview Section
@@ -280,6 +299,17 @@ fun HomeSectionPreview() {
                 title = R.string.align_your_body) {
                 AlignYourBodyRow()
             }
+    }
+}
+
+@Preview(
+    showBackground = true,
+    backgroundColor = 0xFFF5F0EE,
+)
+@Composable
+fun HomeScreenPreview() {
+    JetpackTutorialTheme {
+        HomeScreen()
     }
 }
 
