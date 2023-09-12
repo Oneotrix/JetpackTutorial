@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -283,8 +284,15 @@ fun MyAppPortrait() {
 private fun MyAppNavigationRail(
     modifier: Modifier = Modifier
 ) {
-    NavigationRail {
-        Column() {
+    NavigationRail(
+        modifier = modifier.padding(start = 8.dp, end = 8.dp),
+        containerColor = MaterialTheme.colorScheme.background,
+    ) {
+        Column(
+            modifier = modifier.fillMaxHeight(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             NavigationRailItem(
                 icon = {
                     Icon(
@@ -297,6 +305,8 @@ private fun MyAppNavigationRail(
                 selected = true,
                 onClick = {}
             )
+
+            Spacer(modifier = Modifier.height(8.dp))
 
             NavigationRailItem(
                 icon = {
