@@ -36,6 +36,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -223,7 +224,6 @@ fun HomeScreen(
             FavoriteCollectionGrid()
         }
         Spacer(modifier = Modifier.height(16.dp))
-        MyButtonNavigation()
     }
 }
 
@@ -262,6 +262,20 @@ fun MyButtonNavigation(
         )
     }
 }
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun MyAppPortrait() {
+    JetpackTutorialTheme() {
+        Scaffold(
+            bottomBar = { MyButtonNavigation() }
+        ) { padding ->
+            HomeScreen(Modifier.padding(padding))
+        }
+    }
+}
+
 
 /*
 
@@ -370,3 +384,14 @@ fun MyButtonNavigationPreview() {
     }
 }
 
+
+@Preview(
+    showBackground = true,
+    backgroundColor = 0xFFF5F0EE,
+)
+@Composable
+fun MyAppPortraitPreview() {
+    JetpackTutorialTheme {
+        MyAppPortrait()
+    }
+}
