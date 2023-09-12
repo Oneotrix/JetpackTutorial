@@ -180,6 +180,24 @@ fun FavoriteCollectionGrid(
     }
 }
 
+
+@Composable
+fun HomeSection(
+    @StringRes title: Int,
+    modifier: Modifier = Modifier,
+    content : @Composable () -> Unit) {
+
+    Column(modifier = modifier) {
+        Text(
+            text = stringResource(id = title),
+            style = MaterialTheme.typography.titleMedium,
+            modifier = modifier
+                .paddingFromBaseline(top = 40.dp, bottom = 16.dp)
+                .padding(horizontal = 16.dp))
+        content()
+    }
+}
+
 /*
 
 Preview Section
@@ -247,6 +265,21 @@ fun AlignYourBodyRowPreview() {
 fun FavoriteCollectionGridPreview() {
     JetpackTutorialTheme {
         FavoriteCollectionGrid()
+    }
+}
+
+
+@Preview(
+    showBackground = true,
+    backgroundColor = 0xFFF5F0EE
+)
+@Composable
+fun HomeSectionPreview() {
+    JetpackTutorialTheme() {
+            HomeSection(
+                title = R.string.align_your_body) {
+                AlignYourBodyRow()
+            }
     }
 }
 
