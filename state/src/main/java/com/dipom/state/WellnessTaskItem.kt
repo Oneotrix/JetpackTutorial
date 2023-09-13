@@ -55,9 +55,10 @@ fun WellnessTaskItemStateful(
     var checked by rememberSaveable { mutableStateOf(false) }
     WellnessTaskItem(
         taskName = taskName,
-        onClose = { },
+        onClose = onClose,
         checked = checked ,
-        onCheckedChange = { newValue -> checked = newValue}
+        onCheckedChange = { newValue -> checked = newValue},
+        modifier = modifier
     )
 }
 

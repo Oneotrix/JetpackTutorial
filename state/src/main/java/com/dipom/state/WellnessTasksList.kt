@@ -14,15 +14,19 @@ private fun getWellnessTasks() = List(30) {i -> WellnessTask(i, "Task #$i")}
 @Composable
 fun WellnessTaskList(
     modifier: Modifier = Modifier,
-    list: List<WellnessTask> = rememberSaveable { getWellnessTasks() }
+    list: List<WellnessTask> = rememberSaveable { getWellnessTasks() },
+    onClouseTask: (WellnessTask) -> Unit
 ) {
     LazyColumn(
         modifier = modifier
     ) {
-        items(list) { task ->
+        items(
+            items = list,
+            key = {task -> task.id}
+        ) { task ->
               WellnessTaskItemStateful(
                   taskName = task.label,
-                  onClose = {  }
+                  onClose = { onClouseTask(task) }
               )
         }
     }

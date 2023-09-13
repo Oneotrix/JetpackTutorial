@@ -15,7 +15,10 @@ fun WellnessScreen(
         StatefulCounter(modifier = modifier)
 
         val list = remember { getWellnessTasks().toMutableStateList() }
-        WellnessTaskList(git )
+        WellnessTaskList(
+            list = list,
+            onClouseTask = {task -> list.remove(task)}
+        )
     }
 }
 
