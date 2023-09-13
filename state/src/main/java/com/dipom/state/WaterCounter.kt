@@ -70,17 +70,20 @@ fun StatelessCounter(
     onIncrement: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    if(counter > 0) {
-        Text(text = "You've had $counter glasses.")
+    Column(modifier = modifier.padding(16.dp)) {
+        if(counter > 0) {
+            Text(text = "You've had $counter glasses.")
+        }
+
+        Button(
+            onClick = onIncrement,
+            enabled = counter < 10,
+            modifier = Modifier.padding(top = 8.dp)
+        ) {
+            Text(text = "Add one")
+        }
     }
 
-    Button(
-        onClick = onIncrement,
-        enabled = counter < 10,
-        modifier = Modifier.padding(top = 8.dp)
-    ) {
-        Text(text = "Add one")
-    }
 }
 
 
