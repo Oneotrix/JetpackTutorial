@@ -24,9 +24,10 @@ fun WaterCounter(
     Column(modifier = modifier.padding(16.dp)) {
         var count by remember { mutableStateOf(0)}
         if(count > 0) {
+            var showTask by remember { mutableStateOf(true) }
             WellnessTaskItem(
                 taskName = "Have you taken your 15 minute walk today?",
-                onClose = { }
+                onClose = { showTask = false}
             )
             Text(text = "You've had $count glasses.")
         }
