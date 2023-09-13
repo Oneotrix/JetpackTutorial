@@ -1,4 +1,4 @@
-package com.dipom.state
+package com.dipom.state.presentation.view
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable

@@ -1,4 +1,4 @@
-package com.dipom.state
+package com.dipom.state.presentation.view
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
