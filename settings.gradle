@@ -16,3 +16,4 @@ rootProject.name = "jetpackTutorial"
 include ':app'
 include ':jetpackcomposebasics'
 include ':ui_kit'
+include ':state'
