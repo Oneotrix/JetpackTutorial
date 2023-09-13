@@ -22,7 +22,6 @@ import com.dipom.state.ui.theme.JetpackTutorialTheme
 fun WaterCounter(
     modifier: Modifier = Modifier
 ) {
-
     Column(modifier = modifier.padding(16.dp)) {
         var count by rememberSaveable { mutableStateOf(0)}
         if(count > 0) {
@@ -38,7 +37,8 @@ fun WaterCounter(
 
         Button(
                 onClick = { count ++},
-                enabled = count < 10
+                enabled = count < 10,
+                modifier = Modifier.padding(top = 8.dp)
             ) {
                 Text(text = "Add one")
             }
@@ -61,9 +61,36 @@ fun WaterCounter(
 //        }
         
     }
-
 }
 
+
+@Composable
+fun StatelessCounter(
+    counter: Int,
+    onIncrement: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    if(counter > 0) {
+        Text(text = "You've had $counter glasses.")
+    }
+
+    Button(
+        onClick = onIncrement,
+        enabled = counter < 10,
+        modifier = Modifier.padding(top = 8.dp)
+    ) {
+        Text(text = "Add one")
+    }
+}
+
+
+@Composable
+fun StatefulCounter(
+    modifier: Modifier = Modifier
+) {
+    var count by rememberSaveable { mutableStateOf(0) }
+    StatelessCounter(counter = count, onIncrement = { count++}, modifier)
+}
 
 @Preview
 @Composable
