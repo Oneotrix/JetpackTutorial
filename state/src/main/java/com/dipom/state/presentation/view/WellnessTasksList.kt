@@ -16,7 +16,7 @@ fun WellnessTaskList(
     modifier: Modifier = Modifier,
     list: List<WellnessTask>,
     onClouseTask: (WellnessTask) -> Unit,
-
+    onCheckedTask: (WellnessTask, Boolean) -> Unit
 ) {
     LazyColumn(
         modifier = modifier
@@ -27,7 +27,9 @@ fun WellnessTaskList(
         ) { task ->
               WellnessTaskItemStateful(
                   taskName = task.label,
-                  onClose = { onClouseTask(task) }
+                  onClose = { onClouseTask(task) },
+                  checked = task.initialChecked.value,
+                  onCheckedChange = {checked -> onCheckedTask(task, checked)}
               )
         }
     }

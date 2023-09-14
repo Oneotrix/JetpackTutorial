@@ -49,17 +49,27 @@ fun WellnessTaskItem(
 @Composable
 fun WellnessTaskItemStateful(
     taskName: String,
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
     onClose: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var checked by rememberSaveable { mutableStateOf(false) }
-    WellnessTaskItem(
-        taskName = taskName,
-        onClose = onClose,
-        checked = checked ,
-        onCheckedChange = { newValue -> checked = newValue},
-        modifier = modifier
-    )
+    Row(
+        modifier =  modifier,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            modifier = Modifier
+                .weight(1f)
+                .padding(start = 16.dp),
+            text = taskName
+        )
+        Checkbox(checked = checked, onCheckedChange = onCheckedChange )
+
+        IconButton(onClick = onClose) {
+            Icon(imageVector = Icons.Filled.Close, contentDescription = "Close")
+        }
+    }
 }
 
 @Preview
